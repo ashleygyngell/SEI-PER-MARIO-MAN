@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+/* Grid Wrapper & Game Grid */
+
+.grid-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-grid {
+  align-items: center;
+  background-color: rgb(241, 237, 237);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  height: 600px;
+  width: 600px;
+}
+
+.game-grid div {
+  border: 1px solid lightgrey;
+  flex-grow: 1;
+  height: 5.555%;
+  width: 5.555%;
+  font-size: 7px;
+}
+
+h1 {
+  color: blue;
+}
+
+/* Walls */
+.wall {
+  background-color: grey;
+}
+
+.pen-wall {
+  background-color: rgb(255, 97, 97);
+}
+
+/* Characters */
+
+.grid div.pacMan {
+  background-color: yellow;
