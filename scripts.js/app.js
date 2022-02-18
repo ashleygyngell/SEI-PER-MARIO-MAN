@@ -26,7 +26,7 @@ const walls = [
   //
   126, 127, 128, 129, 130, 132, 137, 139, 140, 141, 142, 143,
   //
-  144, 161,
+  // 144, 161,
   //
   162, 163, 164, 165, 166, 168, 173, 175, 176, 177, 178, 179,
   //
@@ -64,7 +64,6 @@ function createGameGrid() {
 }
 
 // Pacman + Ghost Functions
-
 function addPacman() {
   cells[pacManPosition].classList.add('pacMan');
 }
@@ -73,25 +72,31 @@ function removePacman() {
   cells[pacManPosition].classList.remove('pacMan');
 }
 
+// Wall Block Function
+function wallCollide(directionMoved) {
+  return walls.includes(directionMoved);
+}
+
 // Function to move Pacman
 function handleKeyDown(event) {
   removePacman(pacManPosition);
 
-  const pacManXCoordinate = pacManPosition % gameGridWidth;
-  const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
+  // const pacManXCoordinate = pacManPosition % gameGridWidth;
+  // const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
 
   switch (event.keyCode) {
     case 39:
-      if (pacManXCoordinate < gameGridWidth - 1) pacManPosition++;
+      if (!wallCollide(pacManPosition + 1)) pacManPosition++;
       break;
     case 37:
-      if (pacManXCoordinate > 0) pacManPosition--;
+      if (!wallCollide(pacManPosition - 1)) pacManPosition--;
       break;
     case 38:
-      if (pacManYCoordinate > 0) pacManPosition -= gameGridWidth;
+      if (!wallCollide(pacManPosition - gameGridWidth))
+        pacManPosition -= gameGridWidth;
       break;
     case 40:
-      if (pacManYCoordinate < gameGridWidth - 1)
+      if (!wallCollide(pacManPosition + gameGridWidth))
         pacManPosition += gameGridWidth;
       break;
     default:
