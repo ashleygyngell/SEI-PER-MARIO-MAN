@@ -46,10 +46,16 @@ h1 {
 }
 
 .pen-wall {
-  background-color: rgb(255, 97, 97);
+  background-color: darkred;
+  color: white;
 }
 
 /* Characters */
 .pacMan {
   background-color: yellow;
+}
+
+.ghost {
+  background-color: black;
+  color: white;
 }

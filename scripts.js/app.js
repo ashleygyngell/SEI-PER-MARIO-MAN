@@ -4,6 +4,7 @@ const cells = [];
 
 // Charcter Variables
 let pacManPosition = 149;
+// let ghostPosition = 134;
 
 // Grid Variables
 const gameGridWidth = 18;
@@ -72,46 +73,98 @@ function removePacman() {
   cells[pacManPosition].classList.remove('pacMan');
 }
 
+function addGhost() {
+  cells[ghostPosition].classList.add('ghost');
+}
+
+function removeGhost() {
+  cells[ghostPosition].classList.remove('ghost');
+}
+
 // Wall Block Function
 function wallCollide(directionMoved) {
   return walls.includes(directionMoved);
+}
+
+function penWallCollide(directionMoved) {
+  return penWalls.includes(directionMoved);
 }
 
 // Function to move Pacman
 function handleKeyDown(event) {
   removePacman(pacManPosition);
 
-  // const pacManXCoordinate = pacManPosition % gameGridWidth;
-  // const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
-
   switch (event.keyCode) {
     case 39:
-      if (!wallCollide(pacManPosition + 1)) pacManPosition++;
+      if (
+        !wallCollide(pacManPosition + 1) &&
+        !penWallCollide(pacManPosition + 1)
+      )
+        pacManPosition++;
       break;
     case 37:
-      if (!wallCollide(pacManPosition - 1)) pacManPosition--;
+      if (
+        !wallCollide(pacManPosition - 1) &&
+        !penWallCollide(pacManPosition - 1)
+      )
+        pacManPosition--;
       break;
     case 38:
-      if (!wallCollide(pacManPosition - gameGridWidth))
+      if (
+        !wallCollide(pacManPosition - gameGridWidth) &&
+        !penWallCollide(pacManPosition - gameGridWidth)
+      )
         pacManPosition -= gameGridWidth;
       break;
     case 40:
-      if (!wallCollide(pacManPosition + gameGridWidth))
+      if (
+        !wallCollide(pacManPosition + gameGridWidth) &&
+        !penWallCollide(pacManPosition + gameGridWidth)
+      )
         pacManPosition += gameGridWidth;
       break;
     default:
       console.log('invalid key pressed ... no cheat codes in this game!');
   }
-
   addPacman(pacManPosition);
 }
 
-// Key Push event listeners
+// Function to move Pacman
+// function startGhostHunt(event) {
+//   removeGhost(ghostPosition);
 
+//   switch (event.keyCode) {
+//     case 39:
+//       if (!wallCollide(ghostPosition + 1)) ghostPosition++;
+//       break;
+//     case 37:
+//       if (!wallCollide(ghostPosition - 1)) ghostPosition--;
+//       break;
+//     case 38:
+//       if (!wallCollide(ghostPosition - gameGridWidth))
+//         ghostPosition -= gameGridWidth;
+//       break;
+//     case 40:
+//       if (!wallCollide(ghostPosition + gameGridWidth))
+//         ghostPosition += gameGridWidth;
+//       break;
+//     default:
+//       console.log('invalid key pressed ... no cheat codes in this game!');
+//   }
+//   addGhost(ghostPosition);
+// }
+
+// Key Push event listeners
 document.addEventListener('keydown', handleKeyDown);
 
 // Functions to be executes at Game Start.
-
 createGameGrid();
-
 addPacman();
+// addGhost();
+// startGhostHunt();
+// Functions to be executed at set time.
+
+// setTimeout(startGhostHunt(), 1500)
+
+// const pacManXCoordinate = pacManPosition % gameGridWidth;
+// const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
