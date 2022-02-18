@@ -7,8 +7,12 @@ body {
   margin: 0;
 }
 
-/* Grid Wrapper & Game Grid */
+/* Text */
+h1 {
+  color: blue;
+}
 
+/* Grid Wrapper & Game Grid */
 .grid-wrapper {
   display: flex;
   flex-direction: column;
@@ -36,10 +40,6 @@ body {
   font-size: 7px;
 }
 
-h1 {
-  color: blue;
-}
-
 /* Walls */
 .wall {
   background-color: grey;
@@ -50,6 +50,6 @@ h1 {
 }
 
 /* Characters */
-
-.grid div.pacMan {
+.pacMan {
   background-color: yellow;
+}

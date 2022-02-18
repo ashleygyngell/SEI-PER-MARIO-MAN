@@ -2,6 +2,9 @@
 const grid = document.querySelector('.game-grid');
 const cells = [];
 
+// Charcter Variables
+let pacManPosition = 149;
+
 // Grid Variables
 const gameGridWidth = 18;
 const cellCount = gameGridWidth * gameGridWidth;
@@ -17,7 +20,7 @@ const walls = [
   //
   72, 89,
   //
-  90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 107,
+  90, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 107,
   //
   108, 114, 119, 125,
   //
@@ -47,9 +50,7 @@ const walls = [
   321, 322, 323,
 ];
 
-const pacManPosition = 149;
-
-// functions
+// Core Game Functions
 function createGameGrid() {
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement('div');
@@ -62,6 +63,50 @@ function createGameGrid() {
   }
 }
 
-// here i need to generate pikichu, and the ghost
+// Pacman + Ghost Functions
+
+function addPacman() {
+  cells[pacManPosition].classList.add('pacMan');
+}
+
+function removePacman() {
+  cells[pacManPosition].classList.remove('pacMan');
+}
+
+// Function to move Pacman
+function handleKeyDown(event) {
+  removePacman(pacManPosition);
+
+  const pacManXCoordinate = pacManPosition % gameGridWidth;
+  const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
+
+  switch (event.keyCode) {
+    case 39:
+      if (pacManXCoordinate < gameGridWidth - 1) pacManPosition++;
+      break;
+    case 37:
+      if (pacManXCoordinate > 0) pacManPosition--;
+      break;
+    case 38:
+      if (pacManYCoordinate > 0) pacManPosition -= gameGridWidth;
+      break;
+    case 40:
+      if (pacManYCoordinate < gameGridWidth - 1)
+        pacManPosition += gameGridWidth;
+      break;
+    default:
+      console.log('invalid key pressed ... no cheat codes in this game!');
+  }
+
+  addPacman(pacManPosition);
+}
+
+// Key Push event listeners
+
+document.addEventListener('keydown', handleKeyDown);
+
+// Functions to be executes at Game Start.
 
 createGameGrid();
+
+addPacman();
