@@ -2,10 +2,6 @@
 const grid = document.querySelector('.game-grid');
 const cells = [];
 
-// Charcter Variables
-let pacManPosition = 149;
-// let ghostPosition = 134;
-
 // Grid Variables
 const gameGridWidth = 18;
 const cellCount = gameGridWidth * gameGridWidth;
@@ -50,6 +46,10 @@ const walls = [
   306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320,
   321, 322, 323,
 ];
+
+// Charcter Variables
+let pacManPosition = 149;
+let ghostPosition = 134;
 
 // Core Game Functions
 function createGameGrid() {
@@ -129,30 +129,42 @@ function handleKeyDown(event) {
   addPacman(pacManPosition);
 }
 
-// Function to move Pacman
-// function startGhostHunt(event) {
-//   removeGhost(ghostPosition);
+function startGhostHunt() {
+  const pacManXCoordinate = pacManPosition % gameGridWidth;
+  const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
+  const ghostXcoordinate = ghostPosition % gameGridWidth;
+  const ghostYcoordinate = Math.floor(ghostPosition / gameGridWidth);
 
-//   switch (event.keyCode) {
-//     case 39:
-//       if (!wallCollide(ghostPosition + 1)) ghostPosition++;
-//       break;
-//     case 37:
-//       if (!wallCollide(ghostPosition - 1)) ghostPosition--;
-//       break;
-//     case 38:
-//       if (!wallCollide(ghostPosition - gameGridWidth))
-//         ghostPosition -= gameGridWidth;
-//       break;
-//     case 40:
-//       if (!wallCollide(ghostPosition + gameGridWidth))
-//         ghostPosition += gameGridWidth;
-//       break;
-//     default:
-//       console.log('invalid key pressed ... no cheat codes in this game!');
-//   }
-//   addGhost(ghostPosition);
-// }
+  console.log('searching for Pacman...');
+  removeGhost(ghostPosition);
+
+  if (pacManXCoordinate > ghostXcoordinate && !wallCollide(ghostPosition + 1)) {
+    ghostPosition++;
+    addGhost(ghostPosition);
+  } else if (
+    pacManXCoordinate < ghostXcoordinate &&
+    !wallCollide(ghostPosition - 1)
+  ) {
+    ghostPosition--;
+    addGhost(ghostPosition);
+  } else if (
+    pacManYCoordinate < ghostYcoordinate &&
+    !wallCollide(ghostPosition - gameGridWidth)
+  ) {
+    ghostPosition -= gameGridWidth;
+    addGhost(ghostPosition);
+  } else if (
+    pacManYCoordinate > ghostYcoordinate &&
+    !wallCollide(ghostPosition + gameGridWidth)
+  ) {
+    ghostPosition += gameGridWidth;
+    addGhost(ghostPosition);
+  } else {
+    console.log('no movement');
+    addGhost(ghostPosition);
+  }
+  console.log(pacManXCoordinate, pacManXCoordinate);
+}
 
 // Key Push event listeners
 document.addEventListener('keydown', handleKeyDown);
@@ -160,11 +172,7 @@ document.addEventListener('keydown', handleKeyDown);
 // Functions to be executes at Game Start.
 createGameGrid();
 addPacman();
-// addGhost();
-// startGhostHunt();
+addGhost();
+setInterval(startGhostHunt, 550);
+
 // Functions to be executed at set time.
-
-// setTimeout(startGhostHunt(), 1500)
-
-// const pacManXCoordinate = pacManPosition % gameGridWidth;
-// const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
