@@ -55,8 +55,8 @@ h1 {
   background-color: yellow;
 }
 
-food {
-  background-color: blue;
+.food {
+  background-color: gold;
   background-clip: content-box;
   padding: 10px;
 }

@@ -1,4 +1,5 @@
 // Dom Elements
+const scoreDisplay = document.querySelector('.score-display');
 const grid = document.querySelector('.game-grid');
 const cells = [];
 
@@ -46,6 +47,10 @@ const walls = [
   306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320,
   321, 322, 323,
 ];
+const food = [204, 205, 223, 241, 242, 243, 244, 226, 208, 209];
+
+// Score Variables
+let score = 0;
 
 // Charcter Variables
 let pacManPosition = 294;
@@ -60,6 +65,7 @@ function createGameGrid() {
     if (penWalls.includes(i)) cell.classList.add('pen-wall');
     if (walls.includes(i)) cell.classList.add('wall');
     if (portalWalls.includes(i)) cell.classList.add('portal');
+    if (food.includes(i)) cell.classList.add('food');
     cell.textContent = i;
     cells.push(cell);
     grid.appendChild(cell);
@@ -91,6 +97,11 @@ function removeGhost2() {
   cells[ghost2Position].classList.remove('ghost2');
 }
 
+// Food Functions
+function removeFood() {
+  cells.classList.remove('food');
+}
+
 // Wall Block Function
 function wallCollide(directionMoved) {
   return walls.includes(directionMoved);
@@ -111,7 +122,7 @@ function handleKeyDown(event) {
         !penWallCollide(pacManPosition + 1)
       )
         pacManPosition++;
-      // SHIFT TO LEFT SIDE
+      // SHIFT TO right SIDE
       if (pacManPosition === 161) {
         removePacman(pacManPosition);
         pacManPosition = 145;
@@ -150,6 +161,17 @@ function handleKeyDown(event) {
       console.log('invalid key pressed ... no cheat codes in this game!');
   }
   addPacman(pacManPosition);
+  foodEaten();
+}
+
+// Food Eaten
+function foodEaten() {
+  if (cells[pacManPosition].classList.contains('food')) {
+    score += 10;
+    scoreDisplay.innerHTML = score;
+    cells[pacManPosition].classList.remove('food');
+    console.log('pacman-food-position' + pacManPosition);
+  }
 }
 
 function startGhostHunt() {
@@ -277,6 +299,7 @@ createGameGrid();
 addPacman();
 addGhost();
 addGhost2();
+
 setInterval(startGhostHunt, 550);
 setInterval(startGhost2Hunt, 3500);
 
