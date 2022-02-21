@@ -55,7 +55,21 @@ h1 {
   background-color: yellow;
 }
 
-.ghost {
+food {
+  background-color: blue;
+  background-clip: content-box;
+  padding: 10px;
+}
+
+.portal {
   background-color: black;
+}
+
+.ghost {
+  background-color: blue;
+  color: white;
+}
+.ghost2 {
+  background-color: purple;
   color: white;
 }

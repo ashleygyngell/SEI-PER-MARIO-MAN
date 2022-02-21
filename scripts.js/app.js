@@ -5,6 +5,7 @@ const cells = [];
 // Grid Variables
 const gameGridWidth = 18;
 const cellCount = gameGridWidth * gameGridWidth;
+const portalWalls = [144, 161];
 const penWalls = [134, 135, 152, 153];
 const walls = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
@@ -22,8 +23,7 @@ const walls = [
   108, 114, 119, 125,
   //
   126, 127, 128, 129, 130, 132, 137, 139, 140, 141, 142, 143,
-  //
-  // 144, 161,
+
   //
   162, 163, 164, 165, 166, 168, 173, 175, 176, 177, 178, 179,
   //
@@ -48,8 +48,9 @@ const walls = [
 ];
 
 // Charcter Variables
-let pacManPosition = 149;
-let ghostPosition = 134;
+let pacManPosition = 294;
+let ghostPosition = 136;
+const ghost2Position = 152;
 
 // Core Game Functions
 function createGameGrid() {
@@ -58,6 +59,7 @@ function createGameGrid() {
     cell.setAttribute('data-id', i);
     if (penWalls.includes(i)) cell.classList.add('pen-wall');
     if (walls.includes(i)) cell.classList.add('wall');
+    if (portalWalls.includes(i)) cell.classList.add('portal');
     cell.textContent = i;
     cells.push(cell);
     grid.appendChild(cell);
@@ -81,6 +83,14 @@ function removeGhost() {
   cells[ghostPosition].classList.remove('ghost');
 }
 
+function addGhost2() {
+  cells[ghost2Position].classList.add('ghost2');
+}
+
+function removeGhost2() {
+  cells[ghost2Position].classList.remove('ghost2');
+}
+
 // Wall Block Function
 function wallCollide(directionMoved) {
   return walls.includes(directionMoved);
@@ -101,6 +111,12 @@ function handleKeyDown(event) {
         !penWallCollide(pacManPosition + 1)
       )
         pacManPosition++;
+      // SHIFT TO LEFT SIDE
+      if (pacManPosition === 161) {
+        removePacman(pacManPosition);
+        pacManPosition = 145;
+        addPacman(pacManPosition);
+      }
       break;
     case 37:
       if (
@@ -108,6 +124,12 @@ function handleKeyDown(event) {
         !penWallCollide(pacManPosition - 1)
       )
         pacManPosition--;
+      // SHIFT TO LEFT SIDE
+      if (pacManPosition === 144) {
+        removePacman(pacManPosition);
+        pacManPosition = 160;
+        addPacman(pacManPosition);
+      }
       break;
     case 38:
       if (
@@ -115,6 +137,7 @@ function handleKeyDown(event) {
         !penWallCollide(pacManPosition - gameGridWidth)
       )
         pacManPosition -= gameGridWidth;
+
       break;
     case 40:
       if (
@@ -132,39 +155,119 @@ function handleKeyDown(event) {
 function startGhostHunt() {
   const pacManXCoordinate = pacManPosition % gameGridWidth;
   const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
-  const ghostXcoordinate = ghostPosition % gameGridWidth;
-  const ghostYcoordinate = Math.floor(ghostPosition / gameGridWidth);
+  const ghostXCoordinate = ghostPosition % gameGridWidth;
+  const ghostYCoordinate = Math.floor(ghostPosition / gameGridWidth);
 
-  console.log('searching for Pacman...');
   removeGhost(ghostPosition);
-
-  if (pacManXCoordinate > ghostXcoordinate && !wallCollide(ghostPosition + 1)) {
+  if (
+    ghostYCoordinate === pacManYCoordinate &&
+    !wallCollide(ghostPosition + gameGridWidth)
+  ) {
+    ghostPosition--;
+    addGhost(ghostPosition);
+  }
+  // First Movement
+  else if (
+    pacManXCoordinate > ghostXCoordinate &&
+    !wallCollide(ghostPosition + 1)
+  ) {
     ghostPosition++;
     addGhost(ghostPosition);
-  } else if (
-    pacManXCoordinate < ghostXcoordinate &&
+  }
+  // second Movement
+  else if (
+    pacManXCoordinate < ghostXCoordinate &&
     !wallCollide(ghostPosition - 1)
   ) {
     ghostPosition--;
     addGhost(ghostPosition);
-  } else if (
-    pacManYCoordinate < ghostYcoordinate &&
+  }
+  // Third Movement
+  else if (
+    pacManYCoordinate < ghostYCoordinate &&
     !wallCollide(ghostPosition - gameGridWidth)
   ) {
     ghostPosition -= gameGridWidth;
     addGhost(ghostPosition);
-  } else if (
-    pacManYCoordinate > ghostYcoordinate &&
+  }
+  // Fourth Movemet
+  else if (
+    pacManYCoordinate > ghostYCoordinate &&
     !wallCollide(ghostPosition + gameGridWidth)
   ) {
     ghostPosition += gameGridWidth;
     addGhost(ghostPosition);
-  } else {
-    console.log('no movement');
-    addGhost(ghostPosition);
   }
-  console.log(pacManXCoordinate, pacManXCoordinate);
+  // Blocked left and wall below
+  // else if (
+  //   wallCollide(ghostPosition - 1) &&
+  //   wallCollide((ghostPosition += gameGridWidth))
+  // ) {
+  //   escapeLowLeft();
+  // }
+  else {
+    addGhost(ghostPosition);
+    console.log('ghost1stuck');
+  }
+  console.log(pacManXCoordinate, pacManYCoordinate);
 }
+
+// function escapeLowLeft() {
+//   if (!wallCollide(ghostPosition - 1)) {
+//     ghostPosition - 1;
+//     addGhost(ghostPosition);
+//   } else if (wallCollide(ghostPosition - 1)) {
+//     ghostPosition -= gameGridWidth;
+//     addGhost(ghostPosition);
+//   }
+// }
+
+// function startGhost2Hunt() {
+//   const pacManXCoordinate = pacManPosition % gameGridWidth;
+//   const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
+//   const ghost2Xcoordinate = ghost2Position % gameGridWidth;
+//   const ghost2Ycoordinate = Math.floor(ghost2Position / gameGridWidth);
+
+//   removeGhost2(ghost2Position);
+//   // First Movement
+//   if (
+//     pacManXCoordinate > ghost2Xcoordinate &&
+//     !wallCollide(ghost2Position + 1)
+//   ) {
+//     ghost2Position++;
+//     addGhost2(ghost2Position);
+//   }
+//   // second Movement
+//   else if (
+//     pacManXCoordinate < ghost2Xcoordinate &&
+//     !wallCollide(ghost2Position - 1)
+//   ) {
+//     ghost2Position--;
+//     addGhost2(ghost2Position);
+//   }
+//   // Third Movement
+//   else if (
+//     pacManYCoordinate < ghost2Ycoordinate &&
+//     !wallCollide(ghost2Position - gameGridWidth)
+//   ) {
+//     ghost2Position -= gameGridWidth;
+//     addGhost2(ghost2Position);
+//   }
+//   // Fourth Movemet
+//   else if (
+//     pacManYCoordinate > ghost2Ycoordinate &&
+//     !wallCollide(ghost2Position + gameGridWidth)
+//   ) {
+//     ghost2Position += gameGridWidth;
+//     addGhost2(ghost2Position);
+//   }
+//   // Final
+//   else {
+//     console.log('ghost2Stuck');
+//     addGhost2(ghost2Position);
+//   }
+//   console.log(pacManXCoordinate, pacManYCoordinate);
+// }
 
 // Key Push event listeners
 document.addEventListener('keydown', handleKeyDown);
@@ -173,6 +276,8 @@ document.addEventListener('keydown', handleKeyDown);
 createGameGrid();
 addPacman();
 addGhost();
+addGhost2();
 setInterval(startGhostHunt, 550);
+setInterval(startGhost2Hunt, 3500);
 
 // Functions to be executed at set time.
