@@ -2,7 +2,6 @@
 const scoreDisplay = document.querySelector('.score-display');
 const grid = document.querySelector('.game-grid');
 const cells = [];
-
 // Grid Variables
 const gameGridWidth = 18;
 const cellCount = gameGridWidth * gameGridWidth;
@@ -54,9 +53,10 @@ const walls = [
 let score = 0;
 
 // Charcter Variables
-let pacManPosition = 242;
-let ghostPosition = 169;
+let pacManPosition = 154;
+let ghostPosition = 81;
 // const ghost2Position = 152;
+const pacManFacing = document.getElementById('.pacMan');
 const pacmanStart = [pacManPosition];
 
 // Core Game Functions
@@ -100,15 +100,6 @@ function addGhost() {
 
 function removeGhost() {
   cells[ghostPosition].classList.remove('ghost');
-  if (cells[ghostPosition].classList.contains('portal')) {
-    console.log('nothing to replace');
-  } else if (cells[ghostPosition].classList.contains('pen-wall')) {
-    console.log('nothing to replace');
-  } else if (cells[ghostPosition].classList.length === 0) {
-    console.log('nothing to replace');
-  } else {
-    cells[ghostPosition].classList.add('food');
-  }
 }
 // function addGhost2() {
 //   cells[ghost2Position].classList.add('ghost2');
@@ -137,14 +128,15 @@ function handleKeyDown(event) {
         !penWallCollide(pacManPosition + 1)
       )
         pacManPosition++;
-      // SHIFT TO right SIDE
+      // SHIFT TO RIGHT SIDE
       if (pacManPosition === 161) {
         removePacman(pacManPosition);
-        pacManPosition = 145;
+        pacManPosition = 144;
         addPacman(pacManPosition);
       }
       break;
     case 37:
+      // pacManFacing.style.transform = 'scaleX(-1)';
       if (
         !wallCollide(pacManPosition - 1) &&
         !penWallCollide(pacManPosition - 1)
@@ -153,9 +145,10 @@ function handleKeyDown(event) {
       // SHIFT TO LEFT SIDE
       if (pacManPosition === 144) {
         removePacman(pacManPosition);
-        pacManPosition = 160;
+        pacManPosition = 161;
         addPacman(pacManPosition);
       }
+
       break;
     case 38:
       if (
@@ -174,9 +167,20 @@ function handleKeyDown(event) {
     default:
       console.log('invalid key pressed ... no cheat codes in this game!');
   }
+
   addPacman(pacManPosition);
   foodEaten();
+  starEaten();
   gameStatusCheck();
+}
+
+// Game Over Funtion
+function gameStatusCheck() {
+  if (pacManPosition === ghostPosition) {
+    window.alert(`Game Over! You secured ${score} points`);
+  } else if (star.length === 0) {
+    window.alert(`Wahooo! You secured ${score} points`);
+  }
 }
 
 // Food Eating
@@ -185,6 +189,15 @@ function foodEaten() {
     score += 10;
     scoreDisplay.innerHTML = score;
     cells[pacManPosition].classList.remove('food');
+  }
+}
+
+function starEaten() {
+  if (cells[pacManPosition].classList.contains('star')) {
+    score += 50;
+    scoreDisplay.innerHTML = score;
+    cells[pacManPosition].classList.remove('star');
+    star.pop();
   }
 }
 
@@ -198,10 +211,8 @@ function startGhostHunt() {
   let direction = directions[Math.floor(Math.random() * directions.length)];
 
   removeGhost(ghostPosition);
-
-  // Blocked left and wall below
-
   // First Movement
+
   if (pacManXCoordinate > ghostXCoordinate && !wallCollide(ghostPosition + 1)) {
     ghostPosition++;
     addGhost(ghostPosition);
@@ -243,6 +254,19 @@ function startGhostHunt() {
   console.log('ghost is in this square: ' + ghostPosition);
 }
 
+// class Ghost {
+//   constructor() {
+//     'name',
+//     'speed',
+//     'starting cell',
+//     'starting time',
+//     'targetArea',
+//     'scaredmode';
+//   }
+// }
+
+// = new Ghost('red', 500, 134, 5, 'all', false);
+
 // Key Push event listener
 document.addEventListener('keydown', handleKeyDown);
 
@@ -250,14 +274,6 @@ document.addEventListener('keydown', handleKeyDown);
 createGameGrid();
 addPacman();
 addGhost();
-// addGhost2();
 
 setInterval(startGhostHunt, 400);
 // setInterval(startGhost2Hunt, 500);
-
-// Game Over Funtion
-function gameStatusCheck() {
-  if (pacManPosition === ghostPosition) {
-    window.alert(`Game Over! You secured ${score} points`);
-  }
-}

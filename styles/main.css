@@ -1,25 +1,28 @@
-* {
-  box-sizing: border-box;
-  background-color: grey;
-}
-
 body {
-  height: 100vh;
-  margin: 0;
+  height: 50vh;
+  margin-top: 30px;
+  background-color: black;
+  font-family: 'Press Start 2P', sans-serif, cursive;
 }
 
 /* Text */
 .pacMan-title {
-  color: blue;
-  text-align: center;
+  margin: 20px 0 0 0;
+  content: url('../images/super-plumber-brothers-overlay.png');
+  background-color: rgba(221, 89, 24, 255);
+  padding: 10px;
+  border: 2px solid rgba(255, 220, 199, 255);
+  border-radius: 8px;
+  /* box-shadow: inset 0px 1px 10px 0 black; */
 }
 
-.score-display {
-  border: 5px solid red;
-  background-color: red;
+​ .score-display {
+  border: 5px solid white;
+  background-color: white;
   color: gold;
   padding: 1px;
   margin-bottom: 5px;
+  background-color: rgba(93, 148, 251, 255);
 }
 
 /* Grid Wrapper & Game Grid */
@@ -28,18 +31,24 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-image: url('../images/8BitBackground.jpg');
+  background-size: 1600px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .game-grid {
+  position: relative;
   align-items: center;
-  background-color: rgb(241, 237, 237);
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  background-color: black;
+  box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   flex-wrap: wrap;
   height: 100%;
   justify-content: center;
   height: 600px;
   width: 600px;
+  margin: 20px 0 79px 0;
 }
 
 .game-grid div {
@@ -47,38 +56,74 @@ body {
   flex-grow: 1;
   height: 5.555%;
   width: 5.555%;
-  font-size: 7px;
+  font-size: 0px;
 }
+
+.score-grid {
+  position: absolute;
+  margin: -350px 0 0 1100px;
+  color: white;
+  background-color: rgba(93, 148, 251, 255);
+  font-size: 30px;
+}
+
+.coin-collected {
+  position: absolute;
+  background-color: rgba(93, 148, 251, 255);
+  height: 30px;
+  content: url('../images/coin2.png');
+  margin: 220px 0 0 60px;
+  animation-duration: 0.7s;
+  animation-name: slideinCoin;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* .goomba {
+  position: absolute;
+  height: 60px;
+  content: url('../images/goomba.gif');
+  margin: 600px 800px 0 0;
+  animation-duration: 3s;
+  animation-name: slideinGoomba;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+} */
 
 /* Walls */
 .wall {
-  /* background-image: url('../images/wall.png'); */
-  background-size: 60px;
+  background-image: url('../images/greyBrick.png');
+  background-size: 66px;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: green;
+  background-color: grey;
 }
 
 .pen-wall {
-  background-color: darkred;
-  color: white;
+  background-image: url('../images/wall.png');
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: red;
 }
-
 /* Characters */
 .pacMan {
-  background-color: yellow;
+  background-image: url('../images/marioMoving.png');
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: scaleX(1);
+  /* color: white; */
 }
 
 .food {
-  background-image: url('../images/coinStill.png');
-  background-size: 10px;
+  background-image: url('../images/coin2.png');
+  background-size: 15px;
   background-repeat: no-repeat;
   background-position: center;
   background-color: black;
-}
-
-.noFood {
-  background-color: black;
+  /* color: white; */
 }
 
 .star {
@@ -90,8 +135,11 @@ body {
 }
 
 .ghost {
-  background-color: blue;
-  color: white;
+  background-image: url('../images/normal8bitGhost.webp');
+  background-size: 38px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: none;
 }
 
 .ghost2 {
@@ -101,7 +149,7 @@ body {
 
 .portalLeft {
   background-image: url(../images/tunnel.png);
-  background-size: 55px;
+  background-size: 48px;
   background-repeat: no-repeat;
   background-position: center;
   transform: rotate(90deg);
@@ -110,9 +158,43 @@ body {
 
 .portalRight {
   background-image: url(../images/tunnel.png);
-  background-size: 55px;
+  background-size: 48px;
   background-repeat: no-repeat;
   background-position: center;
   transform: rotate(270deg);
   background-color: black;
 }
+
+@keyframes slideinCoin {
+  from {
+    margin-top: 220px;
+    height: 100%;
+    opacity: 0;
+  }
+
+  to {
+    margin-top: 190px;
+    width: 100%;
+    opacity: 100%;
+  }
+}
+
+@keyframes ghostSneak {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 100%;
+  }
+}
+
+/* @keyframes slideinGoomba {
+  from {
+    margin-right: 1000px;
+  }
+
+  to {
+    margin-right: 1200px;
+  }
+} */
