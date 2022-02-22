@@ -6,8 +6,10 @@ const cells = [];
 // Grid Variables
 const gameGridWidth = 18;
 const cellCount = gameGridWidth * gameGridWidth;
-const portalWalls = [144, 161];
+const portalLeft = [144];
+const portalRight = [161];
 const penWalls = [134, 135, 152, 153];
+const star = [19, 304];
 const walls = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
   //
@@ -47,25 +49,36 @@ const walls = [
   306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320,
   321, 322, 323,
 ];
-const food = [204, 205, 223, 241, 242, 243, 244, 226, 208, 209];
 
 // Score Variables
 let score = 0;
 
 // Charcter Variables
-let pacManPosition = 294;
-let ghostPosition = 136;
-const ghost2Position = 152;
+let pacManPosition = 242;
+let ghostPosition = 169;
+// const ghost2Position = 152;
+const pacmanStart = [pacManPosition];
 
 // Core Game Functions
 function createGameGrid() {
   for (let i = 0; i < cellCount; i++) {
     const cell = document.createElement('div');
     cell.setAttribute('data-id', i);
-    if (penWalls.includes(i)) cell.classList.add('pen-wall');
-    if (walls.includes(i)) cell.classList.add('wall');
-    if (portalWalls.includes(i)) cell.classList.add('portal');
-    if (food.includes(i)) cell.classList.add('food');
+    if (penWalls.includes(i)) {
+      cell.classList.add('pen-wall');
+    } else if (walls.includes(i)) {
+      cell.classList.add('wall');
+    } else if (portalLeft.includes(i)) {
+      cell.classList.add('portalLeft');
+    } else if (portalRight.includes(i)) {
+      cell.classList.add('portalRight');
+    } else if (pacmanStart.includes(i)) {
+      cell.classList.add('start');
+    } else if (star.includes(i)) {
+      cell.classList.add('star');
+    } else {
+      cell.classList.add('food');
+    }
     cell.textContent = i;
     cells.push(cell);
     grid.appendChild(cell);
@@ -83,24 +96,28 @@ function removePacman() {
 
 function addGhost() {
   cells[ghostPosition].classList.add('ghost');
+  cells[ghostPosition].classList.remove('food');
 }
 
 function removeGhost() {
   cells[ghostPosition].classList.remove('ghost');
+  if (cells[ghostPosition].classList.contains('portal')) {
+    console.log('nothing to replace');
+  } else if (cells[ghostPosition].classList.contains('pen-wall')) {
+    console.log('nothing to replace');
+  } else if (cells[ghostPosition].classList.length === 0) {
+    console.log('nothing to replace');
+  } else {
+    cells[ghostPosition].classList.add('food');
+  }
 }
+// function addGhost2() {
+//   cells[ghost2Position].classList.add('ghost2');
+// }
 
-function addGhost2() {
-  cells[ghost2Position].classList.add('ghost2');
-}
-
-function removeGhost2() {
-  cells[ghost2Position].classList.remove('ghost2');
-}
-
-// Food Functions
-function removeFood() {
-  cells.classList.remove('food');
-}
+// function removeGhost2() {
+//   cells[ghost2Position].classList.remove('ghost2');
+// }
 
 // Wall Block Function
 function wallCollide(directionMoved) {
@@ -148,7 +165,6 @@ function handleKeyDown(event) {
         !penWallCollide(pacManPosition - gameGridWidth)
       )
         pacManPosition -= gameGridWidth;
-
       break;
     case 40:
       if (
@@ -164,13 +180,12 @@ function handleKeyDown(event) {
   foodEaten();
 }
 
-// Food Eaten
+// Food Eating
 function foodEaten() {
   if (cells[pacManPosition].classList.contains('food')) {
     score += 10;
     scoreDisplay.innerHTML = score;
     cells[pacManPosition].classList.remove('food');
-    console.log('pacman-food-position' + pacManPosition);
   }
 }
 
@@ -181,18 +196,11 @@ function startGhostHunt() {
   const ghostYCoordinate = Math.floor(ghostPosition / gameGridWidth);
 
   removeGhost(ghostPosition);
-  if (
-    ghostYCoordinate === pacManYCoordinate &&
-    !wallCollide(ghostPosition + gameGridWidth)
-  ) {
-    ghostPosition--;
-    addGhost(ghostPosition);
-  }
+
+  // Blocked left and wall below
+
   // First Movement
-  else if (
-    pacManXCoordinate > ghostXCoordinate &&
-    !wallCollide(ghostPosition + 1)
-  ) {
+  if (pacManXCoordinate > ghostXCoordinate && !wallCollide(ghostPosition + 1)) {
     ghostPosition++;
     addGhost(ghostPosition);
   }
@@ -219,77 +227,24 @@ function startGhostHunt() {
   ) {
     ghostPosition += gameGridWidth;
     addGhost(ghostPosition);
-  }
-  // Blocked left and wall below
-  // else if (
-  //   wallCollide(ghostPosition - 1) &&
-  //   wallCollide((ghostPosition += gameGridWidth))
-  // ) {
-  //   escapeLowLeft();
-  // }
-  else {
+  } else {
     addGhost(ghostPosition);
     console.log('ghost1stuck');
+    rerouteGhost();
   }
+
   console.log(pacManXCoordinate, pacManYCoordinate);
 }
 
-// function escapeLowLeft() {
-//   if (!wallCollide(ghostPosition - 1)) {
-//     ghostPosition - 1;
-//     addGhost(ghostPosition);
-//   } else if (wallCollide(ghostPosition - 1)) {
-//     ghostPosition -= gameGridWidth;
-//     addGhost(ghostPosition);
-//   }
-// }
-
-// function startGhost2Hunt() {
-//   const pacManXCoordinate = pacManPosition % gameGridWidth;
-//   const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
-//   const ghost2Xcoordinate = ghost2Position % gameGridWidth;
-//   const ghost2Ycoordinate = Math.floor(ghost2Position / gameGridWidth);
-
-//   removeGhost2(ghost2Position);
-//   // First Movement
-//   if (
-//     pacManXCoordinate > ghost2Xcoordinate &&
-//     !wallCollide(ghost2Position + 1)
-//   ) {
-//     ghost2Position++;
-//     addGhost2(ghost2Position);
-//   }
-//   // second Movement
-//   else if (
-//     pacManXCoordinate < ghost2Xcoordinate &&
-//     !wallCollide(ghost2Position - 1)
-//   ) {
-//     ghost2Position--;
-//     addGhost2(ghost2Position);
-//   }
-//   // Third Movement
-//   else if (
-//     pacManYCoordinate < ghost2Ycoordinate &&
-//     !wallCollide(ghost2Position - gameGridWidth)
-//   ) {
-//     ghost2Position -= gameGridWidth;
-//     addGhost2(ghost2Position);
-//   }
-//   // Fourth Movemet
-//   else if (
-//     pacManYCoordinate > ghost2Ycoordinate &&
-//     !wallCollide(ghost2Position + gameGridWidth)
-//   ) {
-//     ghost2Position += gameGridWidth;
-//     addGhost2(ghost2Position);
-//   }
-//   // Final
-//   else {
-//     console.log('ghost2Stuck');
-//     addGhost2(ghost2Position);
-//   }
-//   console.log(pacManXCoordinate, pacManYCoordinate);
-// }
+function rerouteGhost() {
+  const directions = [-1, +1, gameGridWidth, -gameGridWidth];
+  let direction = directions[Math.floor(Math.random() * directions.length)];
+  if (!wallCollide(ghostPosition + direction)) {
+    removeGhost(ghostPosition);
+    ghostPosition += direction;
+    addGhost(ghostPosition);
+  } else direction = directions[Math.floor(Math.random() * directions.length)];
+}
 
 // Key Push event listeners
 document.addEventListener('keydown', handleKeyDown);
@@ -298,9 +253,9 @@ document.addEventListener('keydown', handleKeyDown);
 createGameGrid();
 addPacman();
 addGhost();
-addGhost2();
+// addGhost2();
 
 setInterval(startGhostHunt, 550);
-setInterval(startGhost2Hunt, 3500);
+// setInterval(startGhost2Hunt, 500);
 
 // Functions to be executed at set time.

@@ -8,8 +8,17 @@ body {
 }
 
 /* Text */
-h1 {
+.pacMan-title {
   color: blue;
+  text-align: center;
+}
+
+.score-display {
+  border: 5px solid red;
+  background-color: red;
+  color: gold;
+  padding: 1px;
+  margin-bottom: 5px;
 }
 
 /* Grid Wrapper & Game Grid */
@@ -56,20 +65,43 @@ h1 {
 }
 
 .food {
-  background-color: gold;
-  background-clip: content-box;
-  padding: 10px;
+  background-image: url('../images/coinStill.png');
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.portal {
-  background-color: black;
+.star {
+  background-image: url('../images/star.png');
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .ghost {
   background-color: blue;
   color: white;
 }
+
 .ghost2 {
   background-color: purple;
   color: white;
+}
+
+.portalLeft {
+  /* background-image: url(../images/tunnel.png); */
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(90deg);
+  background-color: black;
+}
+
+.portalRight {
+  /* background-image: url(../images/tunnel.png); */
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(270deg);
+  background-color: black;
 }
