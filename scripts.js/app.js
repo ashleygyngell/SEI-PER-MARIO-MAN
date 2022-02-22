@@ -96,7 +96,6 @@ function removePacman() {
 
 function addGhost() {
   cells[ghostPosition].classList.add('ghost');
-  cells[ghostPosition].classList.remove('food');
 }
 
 function removeGhost() {
@@ -131,7 +130,6 @@ function penWallCollide(directionMoved) {
 // Function to move Pacman
 function handleKeyDown(event) {
   removePacman(pacManPosition);
-
   switch (event.keyCode) {
     case 39:
       if (
@@ -178,6 +176,7 @@ function handleKeyDown(event) {
   }
   addPacman(pacManPosition);
   foodEaten();
+  gameStatusCheck();
 }
 
 // Food Eating
@@ -190,10 +189,13 @@ function foodEaten() {
 }
 
 function startGhostHunt() {
+  gameStatusCheck();
   const pacManXCoordinate = pacManPosition % gameGridWidth;
   const pacManYCoordinate = Math.floor(pacManPosition / gameGridWidth);
   const ghostXCoordinate = ghostPosition % gameGridWidth;
   const ghostYCoordinate = Math.floor(ghostPosition / gameGridWidth);
+  const directions = [-1, +1, gameGridWidth, -gameGridWidth];
+  let direction = directions[Math.floor(Math.random() * directions.length)];
 
   removeGhost(ghostPosition);
 
@@ -227,26 +229,21 @@ function startGhostHunt() {
   ) {
     ghostPosition += gameGridWidth;
     addGhost(ghostPosition);
-  } else {
-    addGhost(ghostPosition);
-    console.log('ghost1stuck');
-    rerouteGhost();
   }
-
-  console.log(pacManXCoordinate, pacManYCoordinate);
-}
-
-function rerouteGhost() {
-  const directions = [-1, +1, gameGridWidth, -gameGridWidth];
-  let direction = directions[Math.floor(Math.random() * directions.length)];
-  if (!wallCollide(ghostPosition + direction)) {
-    removeGhost(ghostPosition);
+  // Escape Function
+  else if (!wallCollide(ghostPosition + direction)) {
     ghostPosition += direction;
     addGhost(ghostPosition);
-  } else direction = directions[Math.floor(Math.random() * directions.length)];
+  } else {
+    direction = directions[Math.floor(Math.random() * directions.length)];
+    console.log('stuck');
+    addGhost(ghostPosition);
+  }
+
+  console.log('ghost is in this square: ' + ghostPosition);
 }
 
-// Key Push event listeners
+// Key Push event listener
 document.addEventListener('keydown', handleKeyDown);
 
 // Functions to be executes at Game Start.
@@ -255,7 +252,12 @@ addPacman();
 addGhost();
 // addGhost2();
 
-setInterval(startGhostHunt, 550);
+setInterval(startGhostHunt, 400);
 // setInterval(startGhost2Hunt, 500);
 
-// Functions to be executed at set time.
+// Game Over Funtion
+function gameStatusCheck() {
+  if (pacManPosition === ghostPosition) {
+    window.alert(`Game Over! You secured ${score} points`);
+  }
+}
