@@ -55,8 +55,7 @@ let score = 0;
 // Charcter Variables
 let pacManPosition = 154;
 let ghostPosition = 81;
-// const ghost2Position = 152;
-const pacManFacing = document.getElementById('.pacMan');
+// const pacManFacing = document.getElementById('.pacMan');
 const pacmanStart = [pacManPosition];
 
 // Core Game Functions
@@ -101,13 +100,6 @@ function addGhost() {
 function removeGhost() {
   cells[ghostPosition].classList.remove('ghost');
 }
-// function addGhost2() {
-//   cells[ghost2Position].classList.add('ghost2');
-// }
-
-// function removeGhost2() {
-//   cells[ghost2Position].classList.remove('ghost2');
-// }
 
 // Wall Block Function
 function wallCollide(directionMoved) {
@@ -254,18 +246,54 @@ function startGhostHunt() {
   console.log('ghost is in this square: ' + ghostPosition);
 }
 
-// class Ghost {
-//   constructor() {
-//     'name',
-//     'speed',
-//     'starting cell',
-//     'starting time',
-//     'targetArea',
-//     'scaredmode';
-//   }
+class NewGhost {
+  constructor(name, speed, startCell, areaCovered) {
+    this.className = name;
+    this.speed = speed;
+    this.startCell = startCell;
+    this.currentCell = startCell;
+    this.areaCovered = areaCovered;
+    this.isScared = false;
+  }
+}
+
+const ghosts = [
+  new NewGhost(
+    'Dumbo',
+    '400',
+    152,
+    [19, 20, 21, 22, 23, 24, 25, 37, 43, 55, 61, 73, 74, 75, 76, 77, 78, 79]
+  ),
+  new NewGhost(
+    'bumbo',
+    '400',
+    153,
+    [19, 20, 21, 22, 23, 24, 25, 37, 43, 55, 61, 73, 74, 75, 76, 77, 78, 79]
+  ),
+];
+
+console.log(ghosts[0]);
+
+ghosts.forEach((ghost) => {
+  cells(ghost.currentCell).classList.add(ghost.className);
+  cells[ghost.currentCell].classList.add('ghost');
+});
+
+ghosts.forEach((ghost) => startGhostMovement(ghost));
+
+function startGhostMovement(ghost) {
+  const directions = [-1, +1, gameGridWidth, -gameGridWidth];
+  // eslint-disable-next-line no-unused-vars
+  const direction = directions[Math.floor(Math.random() * directions.length)];
+}
+
+// function addGhost2() {
+//   cells[ghost2].classList.add('ghost2');
 // }
 
-// = new Ghost('red', 500, 134, 5, 'all', false);
+// function removeGhost2() {
+//   cells[ghost2].classList.remove('ghost2');
+// }
 
 // Key Push event listener
 document.addEventListener('keydown', handleKeyDown);

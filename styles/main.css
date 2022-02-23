@@ -5,6 +5,13 @@ body {
   font-family: 'Press Start 2P', sans-serif, cursive;
 }
 
+.alert {
+  padding: 20px;
+  background-color: rgba(221, 89, 24, 255);
+  color: white;
+  margin-bottom: 15px;
+}
+
 /* Text */
 .pacMan-title {
   margin: 20px 0 0 0;
@@ -75,7 +82,7 @@ body {
   margin: 220px 0 0 60px;
   animation-duration: 0.7s;
   animation-name: slideinCoin;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
   animation-timing-function: linear;
 }
 
@@ -142,11 +149,6 @@ body {
   background-color: none;
 }
 
-.ghost2 {
-  background-color: purple;
-  color: white;
-}
-
 .portalLeft {
   background-image: url(../images/tunnel.png);
   background-size: 48px;
@@ -163,6 +165,21 @@ body {
   background-position: center;
   transform: rotate(270deg);
   background-color: black;
+}
+.game-over-screen {
+  border: 1px strong white;
+  height: 300px;
+  width: 300px;
+}
+
+.dumbo {
+  background-color: purple;
+  color: white;
+}
+
+.bumbo {
+  background-color: purple;
+  color: white;
 }
 
 @keyframes slideinCoin {
