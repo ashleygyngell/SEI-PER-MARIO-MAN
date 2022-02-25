@@ -139,7 +139,7 @@ body {
 
 .sound-button {
   position: absolute;
-  content: url('./images/soundoff!.png');
+  content: url('../images/soundoff!.png');
   height: 65px;
   margin: -565px 0 0 860px;
   background-repeat: no-repeat;
@@ -149,7 +149,7 @@ body {
 
 .pacMan-title {
   margin: 20px 0 0 0;
-  content: url('./images/super-plumber-brothers-overlay.png');
+  content: url('../images/super-plumber-brothers-overlay.png');
   background-color: rgba(221, 89, 24, 255);
   padding: 10px;
   border: 2px solid rgba(255, 220, 199, 255);
@@ -207,7 +207,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url('./images/8BitBackground.jpg');
+  background-image: url('../images/8BitBackground.jpg');
   background-size: 1600px;
   background-repeat: no-repeat;
   background-position: center;
@@ -264,7 +264,7 @@ body {
 }
 .wall {
   display: block;
-  background-image: url('./images/greyBrick.png');
+  background-image: url('../images/greyBrick.png');
   background-size: 66px;
   background-repeat: no-repeat;
   background-position: center;
@@ -278,7 +278,7 @@ body {
 }
 
 .pen-wall {
-  background-image: url('./images/wall.png');
+  background-image: url('../images/wall.png');
   background-size: 60px;
   background-repeat: no-repeat;
   background-position: center;
@@ -286,7 +286,7 @@ body {
 }
 /* Characters */
 .pacMan {
-  background-image: url('./images/marioMoving.png');
+  background-image: url('../images/marioMoving.png');
   background-size: 39px;
   background-repeat: no-repeat;
   background-position: center;
@@ -295,7 +295,7 @@ body {
 }
 
 .food {
-  background-image: url('./images/coin2.png');
+  background-image: url('../images/coin2.png');
   background-size: 15px;
   background-repeat: no-repeat;
   background-position: center;
@@ -304,7 +304,7 @@ body {
 }
 
 .star {
-  background-image: url('./images/star.png');
+  background-image: url('../images/star.png');
   background-size: 30px;
   background-repeat: no-repeat;
   background-position: center;
@@ -312,7 +312,7 @@ body {
 }
 
 .torch {
-  background-image: url('./images/torch.png');
+  background-image: url('../images/torch.png');
   background-size: 40px;
   background-repeat: no-repeat;
   background-position: center;
@@ -320,7 +320,7 @@ body {
 }
 
 .ghost {
-  background-image: url('./images/normal8bitGhost.webp');
+  background-image: url('../images/normal8bitGhost.webp');
   background-size: 38px;
   background-repeat: no-repeat;
   background-position: center;
@@ -333,7 +333,7 @@ body {
 }
 
 .portalLeft {
-  background-image: url(./images/tunnel.png);
+  background-image: url(../images/tunnel.png);
   background-size: 48px;
   background-repeat: no-repeat;
   background-position: center;
@@ -342,7 +342,7 @@ body {
 }
 
 .portalRight {
-  background-image: url(./images/tunnel.png);
+  background-image: url(../images/tunnel.png);
   background-size: 48px;
   background-repeat: no-repeat;
   background-position: center;
@@ -374,7 +374,7 @@ body {
   position: absolute;
   background-color: rgba(93, 148, 251, 255);
   height: 30px;
-  content: url('./images/coin2.png');
+  content: url('../images/coin2.png');
   margin: 230px 0 0 45px;
   animation-duration: 0.7s;
   animation-name: slideinCoin;
