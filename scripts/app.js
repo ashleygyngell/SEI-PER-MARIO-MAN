@@ -336,6 +336,8 @@ function gameStatusCheck() {
     removeLight();
   } else if (star.length === 0 && torch.length === 0) {
     removeGhost(ghostPosition);
+    ghostPosition = 81;
+    addGhost(ghostPosition);
     audio.game.pause();
     audio.gamewon.loop = false;
     gameoverScreen.style.display = 'block';
@@ -372,6 +374,7 @@ function torchGrabbed() {
   if (cells[pacManPosition].classList.contains('torch')) {
     scoreDisplay.innerHTML = score;
     cells[pacManPosition].classList.remove('torch');
+    cells[pacManPosition].classList.add('notorch');
     torch.pop();
   }
 }
@@ -502,6 +505,7 @@ function resetAllVariables() {
   lightsButton.style.display = 'none';
   restoregrid();
   restorestars();
+  restoretorch();
 }
 
 function restoregrid() {
@@ -529,6 +533,13 @@ function restorestars() {
   starRestore.forEach((cell) => {
     cells[cell].classList.add('star');
     cells[cell].classList.remove('nostar');
+  });
+}
+
+function restoretorch() {
+  torch.forEach((cell) => {
+    cells[cell].classList.add('torch');
+    cells[cell].classList.remove('notorch');
   });
 }
 
