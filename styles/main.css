@@ -5,14 +5,148 @@ body {
   font-family: 'Press Start 2P', sans-serif, cursive;
 }
 
-.alert {
-  padding: 20px;
-  background-color: rgba(221, 89, 24, 255);
-  color: white;
-  margin-bottom: 15px;
+.start-screen {
+  display: none;
+  position: absolute;
+  height: 600px;
+  width: 600px;
+  margin: 59px 0 0 0;
+  background-color: black;
+  border: 2px solid rgba(255, 220, 199, 255);
+  border-radius: 3px;
 }
 
-/* Text */
+.start-screen button {
+  display: inline-block;
+  background-color: grey;
+  box-shadow: 0 5px #555;
+  padding: 5px 20px;
+  margin: 300px 220px 140px 220px;
+  border: none;
+  color: white;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 24px;
+  font-family: 'Press Start 2P';
+  border: none;
+  border-radius: 15px;
+  height: 31px;
+  cursor: pointer;
+}
+
+.lives {
+  height: 80px;
+  width: 80px;
+  background-color: none;
+  font-family: 'Press Start 2P', sans-serif, cursive;
+  position: absolute;
+  margin: -565px 860px 0 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  color: white;
+}
+
+.start-screen button:hover {
+  background-color: darkslategrey;
+  box-shadow: 0 5px #555;
+}
+
+.start-screen button:active {
+  background-color: ;
+  box-shadow: 0 5px #555;
+  transform: translateY(4px);
+}
+
+.gameover-screen {
+  display: none;
+  position: absolute;
+  height: 600px;
+  width: 600px;
+  margin: 59px 0 0 0;
+  border: 2px solid rgba(255, 220, 199, 255);
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.gameover-screen button {
+  display: flex;
+  justify-content: center;
+  margin-top: 170px;
+  margin-left: 200px;
+  background-color: grey;
+  box-shadow: 0 5px #555;
+  padding: 3px 20px;
+  border: none;
+  color: white;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 24px;
+  font-family: 'Press Start 2P';
+  border: none;
+  border-radius: 15px;
+  height: 31px;
+  cursor: pointer;
+}
+
+.lightsoff button {
+  display: none;
+  position: absolute;
+  margin-top: -300px;
+  margin-left: -130px;
+  background-color: grey;
+  box-shadow: 0 5px #555;
+  padding: 4px 20px;
+  border: none;
+  color: white;
+  outline: none;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 24px;
+  font-family: 'Press Start 2P';
+  border: none;
+  border-radius: 15px;
+  height: 31px;
+  cursor: pointer;
+}
+
+.lightsoff button:hover {
+  background-color: darkslategrey;
+  box-shadow: 0 5px #555;
+}
+
+.lightsoff button:active {
+  background-color: ;
+  box-shadow: 0 5px #555;
+  transform: translateY(4px);
+}
+.gameover-screen button:hover {
+  background-color: darkslategrey;
+  box-shadow: 0 5px #555;
+}
+
+.gameover-screen button:active {
+  box-shadow: 0 5px #555;
+  transform: translateY(4px);
+}
+
+.sound-button {
+  position: absolute;
+  content: url('../images/soundoff!.png');
+  height: 65px;
+  margin: -565px 0 0 860px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
 .pacMan-title {
   margin: 20px 0 0 0;
   content: url('../images/super-plumber-brothers-overlay.png');
@@ -20,10 +154,12 @@ body {
   padding: 10px;
   border: 2px solid rgba(255, 220, 199, 255);
   border-radius: 8px;
-  /* box-shadow: inset 0px 1px 10px 0 black; */
+  box-shadow: 0px 1px 6px 0 black;
+  z-index: 1;
 }
 
 ​ .score-display {
+  display: none;
   border: 5px solid white;
   background-color: white;
   color: gold;
@@ -32,7 +168,40 @@ body {
   background-color: rgba(93, 148, 251, 255);
 }
 
-/* Grid Wrapper & Game Grid */
+.lights-off-control {
+  display: none;
+}
+
+.lightsofflevel {
+  position: absolute;
+  margin: 20px 0 0 -300px;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 1);
+  height: 600px;
+  width: 600px;
+}
+
+.lightsofflevel div {
+  border: 0px solid lightgrey;
+  flex-grow: 1;
+  height: 5.555%;
+  width: 5.555%;
+  font-size: 1px;
+}
+
+.lightsoffoverlay {
+  display: none;
+  position: absolute;
+  height: 600px;
+  width: 600px;
+  margin: 59px 0 0 0;
+  background-color: rgba(0, 0, 0, 1);
+  border: 2px solid rgba(255, 220, 199, 255);
+  border-radius: 3px;
+}
+
 .grid-wrapper {
   display: flex;
   flex-direction: column;
@@ -45,7 +214,6 @@ body {
 }
 
 .game-grid {
-  position: relative;
   align-items: center;
   background-color: black;
   box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.2);
@@ -67,44 +235,46 @@ body {
 }
 
 .score-grid {
+  display: block;
   position: absolute;
   margin: -350px 0 0 1100px;
   color: white;
-  background-color: rgba(93, 148, 251, 255);
   font-size: 30px;
 }
 
-.coin-collected {
-  position: absolute;
-  background-color: rgba(93, 148, 251, 255);
-  height: 30px;
-  content: url('../images/coin2.png');
-  margin: 220px 0 0 60px;
-  animation-duration: 0.7s;
-  animation-name: slideinCoin;
-  animation-iteration-count: 1;
-  animation-timing-function: linear;
+.score-grid-end {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 170px;
+  color: white;
+  background: none;
+  font-size: 20px;
+  width: auto;
 }
 
-/* .goomba {
-  position: absolute;
-  height: 60px;
-  content: url('../images/goomba.gif');
-  margin: 600px 800px 0 0;
-  animation-duration: 3s;
-  animation-name: slideinGoomba;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: linear;
-} */
-
-/* Walls */
+#lights {
+  background-color: yellow;
+  height: auto;
+  width: 40px;
+  z-index: +1;
+  position: relative;
+}
 .wall {
+  display: block;
   background-image: url('../images/greyBrick.png');
   background-size: 66px;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: grey;
+  z-index: 0;
+}
+
+.wallight {
+  background-color: white;
+  opacity: 0.8;
+  z-index: 0;
 }
 
 .pen-wall {
@@ -117,7 +287,7 @@ body {
 /* Characters */
 .pacMan {
   background-image: url('../images/marioMoving.png');
-  background-size: 40px;
+  background-size: 39px;
   background-repeat: no-repeat;
   background-position: center;
   transform: scaleX(1);
@@ -141,12 +311,25 @@ body {
   background-color: black;
 }
 
+.torch {
+  background-image: url('../images/torch.gif');
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: black;
+}
+
 .ghost {
   background-image: url('../images/normal8bitGhost.webp');
   background-size: 38px;
   background-repeat: no-repeat;
   background-position: center;
   background-color: none;
+}
+
+.ghost2 {
+  background-color: purple;
+  color: white;
 }
 
 .portalLeft {
@@ -166,20 +349,37 @@ body {
   transform: rotate(270deg);
   background-color: black;
 }
-.game-over-screen {
-  border: 1px strong white;
-  height: 300px;
-  width: 300px;
+
+.easter-egg1 {
+  position: absolute;
+  height: 55px;
+  width: 60px;
+  margin: 600px 0 0 930px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: none;
 }
 
-.dumbo {
-  background-color: purple;
-  color: white;
+.easter-egg2 {
+  position: absolute;
+  height: 55px;
+  width: 55px;
+  margin: 240px 0 0 1220px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: none;
 }
 
-.bumbo {
-  background-color: purple;
-  color: white;
+.easter-Egg2 {
+  position: absolute;
+  background-color: rgba(93, 148, 251, 255);
+  height: 30px;
+  content: url('../images/coin2.png');
+  margin: 230px 0 0 45px;
+  animation-duration: 0.7s;
+  animation-name: slideinCoin;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
 }
 
 @keyframes slideinCoin {
@@ -206,7 +406,7 @@ body {
   }
 }
 
-/* @keyframes slideinGoomba {
+@keyframes slideinGoomba {
   from {
     margin-right: 1000px;
   }
@@ -214,4 +414,35 @@ body {
   to {
     margin-right: 1200px;
   }
-} */
+}
+
+.resize-message {
+  background-color: black;
+  position: absolute;
+  display: block;
+  margin: 60px 0 0 0;
+  text-align: center;
+  height: 600px;
+  width: 600px;
+  color: white;
+  z-index: -5;
+}
+
+@media screen and (max-width: 1400px) {
+  .start-screen button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .resize-message {
+    z-index: 5;
+  }
+}
+
+.controls-instructions {
+  color: white;
+  position: absolute;
+  font-size: 18px;
+  margin: -400px 0 0 110px;
+}
