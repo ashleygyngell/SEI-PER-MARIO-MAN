@@ -498,7 +498,7 @@ function resetAllVariables() {
   audio.lostgame.pause();
   lightsofflevel.style.display = 'none';
   lightoffOverlay.style.display = 'none';
-  gridwrapper.style.backgroundImage = '../images/8BitBackground.jpg';
+  gridwrapper.style.backgroundImage = './images/8BitBackground.jpg';
   lightsButton.style.display = 'none';
   restoregrid();
   restorestars();
@@ -566,8 +566,8 @@ function resetVariablesLightsOut() {
 
 function change() {
   console.log('test');
-  const img1 = '../images/soundoff!.png',
-    img2 = '../images/soundoff!.png';
+  const img1 = './images/soundoff!.png',
+    img2 = './images/soundoff!.png';
   const imgElement = soundButton;
 
   imgElement.src = imgElement.src === img1 ? img2 : img1;
@@ -581,15 +581,15 @@ easteregg2.addEventListener('click', clickHandler4);
 lightsButton.addEventListener('click', clickHandler6);
 
 const audio = {
-  start: new Audio('../sounds/start_letsago.wav'),
-  game: new Audio('../sounds/marioUpbeat.mp3'),
-  pipe: new Audio('../sounds/pipe.mp3'),
-  lostlife: new Audio('../sounds/life-lost.mp3'),
-  lostgame: new Audio('/../sounds/smb_gameover.wav'),
-  gamewon: new Audio('../sounds/level-clear.mp3'),
-  egg1: new Audio('../sounds/easter-egg1.mp3'),
-  egg2: new Audio('../sounds/easter-egg2.mp3'),
-  lightsout: new Audio('../sounds/lightsoutsound.mp3'),
-  boo: new Audio('../sounds/boo.wav'),
-  herewego: new Audio('sounds/herewego.mp3'),
+  start: new Audio('./sounds/start_letsago.wav'),
+  game: new Audio('./sounds/marioUpbeat.mp3'),
+  pipe: new Audio('./sounds/pipe.mp3'),
+  lostlife: new Audio('./sounds/life-lost.mp3'),
+  lostgame: new Audio('/./sounds/smb_gameover.wav'),
+  gamewon: new Audio('./sounds/level-clear.mp3'),
+  egg1: new Audio('./sounds/easter-egg1.mp3'),
+  egg2: new Audio('./sounds/easter-egg2.mp3'),
+  lightsout: new Audio('./sounds/lightsoutsound.mp3'),
+  boo: new Audio('./sounds/boo.wav'),
+  herewego: new Audio('./sounds/herewego.mp3'),
 };
