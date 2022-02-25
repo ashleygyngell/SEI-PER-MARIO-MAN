@@ -29,6 +29,7 @@ let star = [19, 304];
 const starRestore = [19, 304];
 // eslint-disable-next-line prefer-const
 let torch = [289];
+const torchRestore = [289];
 const walls = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
   //
@@ -506,6 +507,10 @@ function resetAllVariables() {
   restoregrid();
   restorestars();
   restoretorch();
+  popstars();
+  poptorch();
+  star.push(19, 304);
+  torch.push(289);
 }
 
 function restoregrid() {
@@ -533,13 +538,27 @@ function restorestars() {
   starRestore.forEach((cell) => {
     cells[cell].classList.add('star');
     cells[cell].classList.remove('nostar');
+    cells.push(19, 304);
   });
 }
 
 function restoretorch() {
-  torch.forEach((cell) => {
+  torchRestore.forEach((cell) => {
     cells[cell].classList.add('torch');
     cells[cell].classList.remove('notorch');
+    cells.push(289);
+  });
+}
+
+function popstars() {
+  star.forEach((cell) => {
+    cells[cell].push(19, 304);
+  });
+}
+
+function poptorch() {
+  star.forEach((cell) => {
+    cells[cell].push(289);
   });
 }
 
@@ -573,6 +592,10 @@ function resetVariablesLightsOut() {
   easteregg1.style.zIndex = '-1';
   easteregg2.style.zIndex = '-1';
   title.style.style.zIndex = '-1';
+  restorestars();
+  restoretorch();
+  popstars();
+  poptorch();
 }
 
 function change() {
