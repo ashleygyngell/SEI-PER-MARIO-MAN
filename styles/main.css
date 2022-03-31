@@ -456,6 +456,7 @@ border-radius: 3px;} */
 .controls-instructions {
   color: white;
   position: absolute;
-  font-size: 18px;
+  font-size: 17px;
   margin: -450px 0 0 110px;
+  
 }
