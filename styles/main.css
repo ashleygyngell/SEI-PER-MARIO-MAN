@@ -16,12 +16,24 @@ body {
   border-radius: 3px;
 }
 
+.you-win {display: none;
+  font-size: 30px;
+  text-align: center;
+position: absolute;
+height: 600px;
+width: 600px;
+color: white;
+margin: 59px 0 0 0;
+background-color: black;
+border: 2px solid rgba(255, 220, 199, 255);
+border-radius: 3px;}
+
 .start-screen button {
   display: inline-block;
   background-color: grey;
   box-shadow: 0 5px #555;
   padding: 5px 20px;
-  margin: 300px 220px 140px 220px;
+  margin: 350px 220px 100px 220px;
   border: none;
   color: white;
   outline: none;
@@ -262,6 +274,7 @@ body {
   z-index: +1;
   position: relative;
 }
+
 .wall {
   display: block;
   background-image: url('../images/greyBrick.png');
