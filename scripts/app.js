@@ -1,7 +1,7 @@
 // Dom Elements
 const startScreen = document.querySelector('.start-screen');
 const gameoverScreen = document.querySelector('.gameover-screen');
-const youwin = document.querySelector('.you-win');
+// const youwin = document.querySelector('.you-win');
 const scoreDisplay = document.querySelector('.score-grid');
 const scoreDisplayEnd = document.querySelector('.score-grid-end');
 const startButton = document.querySelector('#start');
