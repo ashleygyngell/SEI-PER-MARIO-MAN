@@ -1,4 +1,4 @@
-# SuperMario-Man - GA Project 1
+# SuperMario-Man - Project 1 @ GA (General Assembly)
 
 This was my first solo project on the Software Engineering Immersive course.
 
@@ -12,11 +12,11 @@ This game has been deployed via GitHub Pages and is available [here](https://ash
 
 To build a fully functioning game with pure JavaScript in 7 days. I was tasked with designing logic for winning conditions and displaying this to the user.
 
-## Technologies used
+## Languages used
 
-- HTML5
-- CSS3
 - JavaScript
+- CSS3
+- HTML5
 
 ## Concept
 
