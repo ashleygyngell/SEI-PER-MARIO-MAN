@@ -8,7 +8,7 @@ This was my first solo project on the Software Engineering Immersive course.
 
 This game has been deployed via GitHub Pages and is available [here](https://ashleygyngell.github.io/SEI-PER-MARIO-MAN/)
 
-## Objective
+## The Brief
 
 To build a fully functioning game with pure JavaScript in 7 days. I was tasked with designing logic for winning conditions and displaying this to the user.
 
@@ -22,7 +22,7 @@ To build a fully functioning game with pure JavaScript in 7 days. I was tasked w
 
 The player moves around the map to collect as many coins as possible without getting caught by the ghost. If the player collects the three special items, they instantly unlock the next level.
 
-My game pays tribute to two of my favorite games growing up - Super Mario Bros & Pac Man.
+SEI-PER-MARIO-MAN pays tribute to two of my favorite games growing up - Super Mario Bros & Pac Man.
 
 ## Phase One (Days 1-2)
 
